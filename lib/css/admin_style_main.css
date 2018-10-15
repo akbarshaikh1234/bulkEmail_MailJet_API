@@ -1,0 +1,103 @@
+
+body {
+    background: #F1F3FA;
+  }
+  
+  .profile {
+    margin: 20px 0;
+  }
+  
+  .profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+  }
+
+  .profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  
+  .profile-usermenu{
+      margin:5px 0px;
+  }
+  .profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+    margin:10px 10px;
+  }
+  
+  .profile-usermenu ul li:last-child {
+    border-bottom: none;
+  }
+  
+  .profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 16px;
+    font-weight: 400;
+   
+  }
+
+  .active {
+    font-weight:bold;
+  }
+
+  .profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+  }
+  
+  .profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+  }
+  
+  .profile-usermenu ul li.active {
+    border-bottom: none;
+  }
+  
+  .profile-usermenu ul li.active a {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
+  }
+  
+  /* Profile Content */
+  .profile-content {
+    height:85vh;
+    padding: 20px;
+    background: #fff;
+    overflow:auto;
+    margin-top:50px;
+    
+  }
+  
+  #mailer-model{
+    margin:auto;
+  }
+
+  #upload{
+    margin:25px auto;
+  }
+
+  table{
+    width:100%;
+  }
+
+  #composeMail{
+    position: absolute;
+    top:10px;
+    right:18px;
+    font-size:15px;
+    border-radius:3px;
+  }
+  #composeMail > span{
+    font-size:15px;
+    font-family:calibri;
+  }

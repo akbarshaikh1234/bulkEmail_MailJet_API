@@ -1,0 +1,73 @@
+#subs input[type=email]{
+    max-width:100%;
+    width:400px;
+  }
+  a:hover{
+    text-decoration:none !important;
+  }
+  header{
+    position:fixed !important;
+    top:0;
+    left:0;
+    width:100%;
+    background: rgb(255, 255, 255);
+    height:50px;
+    z-index:5;
+  
+  }
+  #nav-bar > ul > li{
+    width:10vw;
+  }
+  
+  img{
+    max-width:100%;
+    width:100px;
+    height:50px;
+    margin:auto;
+  }
+  
+  #img-container{
+    display:flex;
+    height:50px;
+  }
+  
+  #nav-container{
+    background: rgb(255, 255, 255);
+    height:50px;
+  }
+  
+  #form-container{
+    width:100%;
+    background:#eeeeeeaa;
+    padding:0  !important;
+    height:100vh; 
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #login-model{
+      margin:0 auto;
+  }
+
+  @media (max-width:771px){
+    #nav-container{
+      display:flex;
+      justify-content: center;
+    }
+    #video-container{
+      display:grid;
+      justify-items:center;
+    }
+  
+    #nav-bar > ul > li{
+      width:20vw;
+    }
+  
+  }
+  
+  @media (max-width:300px){
+    #nav-bar > ul > li{
+      width:30vw;
+    }
+  }
