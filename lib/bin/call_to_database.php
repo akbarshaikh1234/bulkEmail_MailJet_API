@@ -19,10 +19,11 @@
     //call to csv file upload by admin
     if(isset($_GET['fileupload'])){
         fileupload();
-    }
+    }    
 
     //function defination for admin login 
     function adminLogin(){
+
         $bool;
         $email = $_POST['email'];
         $pass = $_POST['pass'];
@@ -72,6 +73,8 @@
         header('location:../../index.php');
     }
 
+
+    //file upload function to upload csv contacts to local db
     function fileupload(){
         $db = new Database();
         $filename=$_FILES["file"]["tmp_name"];
@@ -97,3 +100,5 @@
 
         header('location:../../admin/index.php');
     }
+
+   

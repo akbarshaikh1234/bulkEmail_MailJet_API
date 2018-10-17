@@ -1,15 +1,23 @@
 <?php
     require '../../vendor/autoload.php';
-
+    require 'keys.php';
+    
     use \Mailjet\Resources;
+    
 
     if(isset($_GET['message'])){        
         sendMail();
     }
 
+    if(isset($_GET['fileuploadMailjet'])){
+        fileuploadMailjet();
+    }
+    
+    //Mail send function to send bulk message
     function sendMail(){
-        $apiKey ='f87e1a5f0fa2732480bc17bc415136e6';
-        $apiSecret ='3797f2781ddcaae1615ccd4d3358a6c3';
+        
+        global $apiKey; 
+        global $apiSecret;
 
         $mailjet = new \Mailjet\Client($apiKey,$apiSecret);
 
@@ -41,5 +49,18 @@
         $response->success() && var_dump($response->getData());
     
         return 'Error: ' . print_r($response->getStatus(), true);
+
+    }
+
+     //file upload function to upload csv contacts to MailJet contact list on server
+     function fileuploadMailjet(){
+
+        $filename=$_FILES["file"]["tmp_name"];
+
+        $content = file_get_contents($filename);
+
+        $mj = new \Mailjet\Client(getenv('MJ_APIKEY_PUBLIC'), getenv('MJ_APIKEY_PRIVATE'));
+        $response = $mj->post(Resources::$ContactslistCsvdata, ['body' => $content, 'id' => $ID_CONTACTLIST]);
+        $response->success() && var_dump($response->getData());
 
     }

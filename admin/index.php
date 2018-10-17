@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
-
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500" rel="stylesheet">
 
     <!-- custom CSS -->
     <link rel="stylesheet" href="../lib/css/admin_style_main.css">
@@ -77,19 +77,40 @@
              <div class="profile-content">
 				<div class="row">
 					<!-- upload section -->
-					<div id="upload" class=" col-xl-8 col-lg-8 col-md-10 col-xs-12 content-area">
-						<form method="POST" action="../lib/bin/call_to_database.php?fileupload=true" enctype="multipart/form-data">
-							<div class="input-group ">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="uploadCSV" name="file">
-									<label class="custom-file-label" for="uploadCSV">Browse CSV file</label>
-								</div>
+					<div id="upload" class=" col-9 content-area">
+						<div class="row">
+							<form method="POST" class="upload-groups" action="../lib/bin/mailjet.php?fileuploadMailjet=true" enctype="multipart/form-data">	
+								<p >MailJet Contact List </p>	
+								<br>
+								<div class="input-group ">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="uploadCSV" name="file">
+										<label class="custom-file-label" for="uploadCSV">Browse CSV file</label>
+									</div>
 
-								<div class="input-group-append">
-									<button class="btn btn-primary" name="submit" type="submit" id="uploadcsv">Upload File</button>
-								</div>
-							</div>
-						</form>						
+									<div class="input-group-append">
+										<button class="btn btn-primary" name="submit" type="submit" id="uploadcsv">Upload File</button>
+									</div>
+								</div>						
+							</form>		
+						</div>
+							<hr class="my-4"> 
+						<div class="row">
+							<form method="POST" id="" class="upload-groups" action="../lib/bin/call_to_database.php?fileupload=true" enctype="multipart/form-data">		
+								<p >Local Contact List</p>	
+								<br>	
+								<div class="input-group ">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="uploadCSV" name="file">
+										<label class="custom-file-label" for="uploadCSV">Browse CSV file</label>
+									</div>
+
+									<div class="input-group-append">
+										<button class="btn btn-primary" name="submit" type="submit" id="uploadcsv">Upload File</button>
+									</div>
+								</div>						
+							</form>	
+						</div>										
 					</div>
 
 					<!-- list subscribers -->
