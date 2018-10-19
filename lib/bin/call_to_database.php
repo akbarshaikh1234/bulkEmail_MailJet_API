@@ -76,29 +76,35 @@
 
     //file upload function to upload csv contacts to local db
     function fileupload(){
-        $db = new Database();
-        $filename=$_FILES["file"]["tmp_name"];
+        if(isset($_FILES["localFile"]["tmp_name"])){
+            $db = new Database();
+            $filename=$_FILES["localFile"]["tmp_name"];
+    
+            if($_FILES["file"]["size"] > 0){
+                $file = fopen($filename, "r");
+                
+                while(!feof($file)){
+                  $data = fgetcsv($file);
+                  $email = $data[0];
+        
+                  $result = $db->getRow('SELECT * FROM subs WHERE email = ?',["$email"]);
+        
+                  if($result <= 0 && $email !=NULL){
+                    $db->insertRow('INSERT INTO subs (email)VALUES(?)',["$email"]);
+                  }
+                        
+                }              
+                fclose($file);              
+            }
+    
+            $db->disconnect();
+    
+            header('location:../../admin/index.php');
 
-        if($_FILES["file"]["size"] > 0){
-            $file = fopen($filename, "r");
-            
-            while(!feof($file)){
-              $data = fgetcsv($file);
-              $email = $data[0];
-    
-              $result = $db->getRow('SELECT * FROM subs WHERE email = ?',["$email"]);
-    
-              if($result <= 0 && $email !=NULL){
-                $db->insertRow('INSERT INTO subs (email)VALUES(?)',["$email"]);
-              }
-                    
-            }              
-            fclose($file);              
+        }else{
+            echo "please Select file to upload";
         }
-
-        $db->disconnect();
-
-        header('location:../../admin/index.php');
+       
     }
 
    

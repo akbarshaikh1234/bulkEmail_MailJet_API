@@ -36,18 +36,22 @@ body {
     border-bottom: none;
   }
   
-  .profile-usermenu ul li a {
+  .profile-usermenu ul li a, #slideNav li span{
     color: #93a3b5;
     font-size: 16px;
     font-weight: 400;
    
   }
 
+  #sub-list-link{
+    margin-left:20px;
+  }
+
   .active {
     font-weight:bold;
   }
 
-  .profile-usermenu ul li a i {
+  .profile-usermenu ul li a i,#slideNav li span i {
     margin-right: 8px;
     font-size: 14px;
   }
@@ -111,4 +115,28 @@ body {
     font-size : 35px;
     font-weight:300;
     text-align: center;
+  }
+
+  select{
+    font-family:Quicksand !important;
+    font-size:18px !important;
+    font-weight: 300 !important;    
+  }
+
+  #checkBoxSelectAll{   
+    background: #eee;
+    border-radius:3px;
+  }
+
+  .checkBoxRest , #checkBoxSelectAll{
+    padding: 4px 0;
+    text-align: center;
+  }
+
+  .center{
+    margin:0 auto;
+  }
+
+  #addListGroup{
+    margin-bottom:20px;
   }

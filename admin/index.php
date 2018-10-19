@@ -4,7 +4,7 @@
 	$count = 0;
     if(isset($_SESSION['user'])){
 		$db = new Database();
-		$row = $db->getRows('SELECT distinct(email) FROM subs',[]);
+		$row = $db->getRows('SELECT * FROM subs',[]);
 ?>
 
 <!DOCTYPE html>
@@ -53,15 +53,42 @@
 				<div class="profile-usermenu">
 					<ul class="nav flex-column" id="links">
 						<li class=" nav-item ">
-							<a href="#upload" class="active">
+							<a id="upload-link" href="#upload" class="active">
 							<i class="fas fa-upload"></i>
 							Upload CSV </a>
 						</li>
-						<li class="nav-item">
-							<a href="#list-subs">
-							<i class="far fa-list-alt"></i>
-							Subscrbers List </a>
-						</li>
+						<div id="slideNav">
+							<li>
+								<span>
+									<i class="far fa-list-alt"></i>
+									Subscrbers List
+								</span>
+									
+							</li>
+							
+							<div id="sub-list-link" style="display:none;">
+								<li class="nav-item">
+									<a href="#list-sub-mailjet">
+										<i class=""></i>
+										List Subscribers MailJet
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#list-subs-local">
+										<i class=""></i>
+										List Subscribers  Local 
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#listCreate">
+										<i class=""></i>
+										Create List
+									</a>
+								</li>
+							</div>
+							
+						</div>
+						
 						<li class="nav-item">
 							<a href="#statistics">
 							<i class="fas fa-chart-line"></i>
@@ -77,14 +104,26 @@
              <div class="profile-content">
 				<div class="row">
 					<!-- upload section -->
-					<div id="upload" class=" col-9 content-area">
+					<div id="upload" class=" col-9">
 						<div class="row">
 							<form method="POST" class="upload-groups" action="../lib/bin/mailjet.php?fileuploadMailjet=true" enctype="multipart/form-data">	
 								<p >MailJet Contact List </p>	
 								<br>
+								<div class="row">
+									<div class="col-4">
+										Contact List :
+									</div>
+									<div class="col-8">
+										<div class="form-group col-12">
+											<select name="contactid" id="contactListId" class="form-control">
+											 	<option value="" selected>Select ContactList </option>
+											</select>
+										</div>
+									</div>
+								</div>
 								<div class="input-group ">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="uploadCSV" name="file">
+										<input type="file" class="custom-file-input" id="uploadCSV" name="mailjetFile">
 										<label class="custom-file-label" for="uploadCSV">Browse CSV file</label>
 									</div>
 
@@ -101,7 +140,7 @@
 								<br>	
 								<div class="input-group ">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="uploadCSV" name="file">
+										<input type="file" class="custom-file-input" id="uploadCSV" name="LocalFile">
 										<label class="custom-file-label" for="uploadCSV">Browse CSV file</label>
 									</div>
 
@@ -113,12 +152,40 @@
 						</div>										
 					</div>
 
-					<!-- list subscribers -->
-					<div id="list-subs" class="content-area table-responsive">
-						<table class="table">
+					<!-- list subscribers Mailjet -->
+					<div id="list-sub-mailjet" class="content-area table-responsive">
+						<div class="row">
+							<div class='col-8 center'>
+								<select class="form-control" name="listIds" id="listIds">
+									<option value="">Select ... </option>
+								</select>
+							</div>	
+						</div>
+						<br>
+						<br>
+						<table class="table" id="mailjetTable">
 							<thead>
 								<tr>
-									<th><input type="checkbox" name="checkAll" id="checkAll"></th>
+									<th><div id="checkBoxSelectAll"><input type="checkbox" name="checkAll" id="checkAll"></div></th>
+									<th scope="col">id</th>
+									<th scope="col">Subscriber Emails</th>							
+								</tr>
+							</thead>
+							<tbody>																				
+							</tbody>
+						</table>
+						<div id="buttonContainer">
+							<button type="button" class="fas fa-mail-bulk btn btn-danger btn-lg" name="sendmail" id="composeMail" data-toggle="modal" data-target="#mailModel" > <span> &nbsp; Compose </span></button>
+						</div>
+						
+					</div>
+
+					<!-- list subscribers Local -->
+					<div id="list-subs-local" class="content-area table-responsive">
+						<table class="table" id="localTable">
+							<thead>
+								<tr>
+									<th><div id="checkBoxSelectAll"><input type="checkbox" name="checkAll" id="checkAll"></div></th>
 									<th scope="col">id</th>
 									<th scope="col">Subscriber Emails</th>							
 								</tr>
@@ -128,8 +195,8 @@
 									<?php									
 										foreach( $row as $data){
 											echo "<tr>";
-											echo "<td><input type='checkbox' class='check_list' name='check_list[]' value=".$data['email']."></td>";
-											echo "<td>".++$count."</td>";
+											echo "<td><div class='checkBoxRest'><input type='checkbox' class='check_list' name='check_list[]' value=".$data['email']."></div></td>";
+											echo "<td>".$data['id']."</td>";
 											echo "<td>".$data['email']."</td>";
 											echo "</tr>";
 										}										
@@ -143,6 +210,36 @@
 						
 					</div>
 
+
+					<!-- Create List Name-->
+					<div id="listCreate" class="content-area table-responsive">
+						<div class="row">
+							<div class="col-8 center" >
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Contact List Name" id="listName">
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button" id="addName">Add Name</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<table class="table" id="contactListTable">
+							<thead>
+								<tr>
+									<th><div id="checkBoxSelectAll"><input type="checkbox" name="checkAll" id="checkAll"></div></th>
+									<th scope="col">id</th>
+									<th scope="col">List Name</th>							
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>		
+					
+					
 					<!-- statistics -->
 					<div id="statistics" class="content-area">
 						show stats
