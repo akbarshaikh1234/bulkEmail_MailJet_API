@@ -32,14 +32,31 @@
 
         if(isset($_GET['addContactList'])){
             $name=$_POST['listName'];
-            
-            //$data->IsDeleted = false;
-            //$data->Name=$name;
-
             $myJson = json_encode(array('IsDeleted'=>false,'Name'=>$name),JSON_FORCE_OBJECT);
             $url="https://api.mailjet.com/v3/REST/contactslist";
 
             postCurlRequest($apiKey,$apiSecret,$url,$myJson);
+        }
+
+        if(isset($_GET['stats'])){
+            $fromDate = new DateTime($_POST['dateFrom']."T00:00:00");
+            $toDate =  new DateTime($_POST['dateTo']."T00:00:00");
+            $fromDate = $fromDate->format('Y-m-d\TH:i:s');
+            $toDate = $toDate->format('Y-m-d\TH:i:s');
+
+            $filters = [
+                'SourceId' => $apiKey,
+                'CounterSource' => 'APIKey',
+                'CounterTiming' => 'Message',
+                'CounterResolution' => 'Day',
+                'FromTS'=> $fromDate,
+                'ToTS'=>$toDate
+            ];
+
+            $filters = http_build_query($filters);
+
+            $url = "https://api.mailjet.com/v3/REST/statcounters?".$filters;
+            getCurlRequest($apiKey,$apiSecret,$url);
         }
     }else{
         echo "you have not logged in OR you are not registred User";
@@ -116,6 +133,7 @@
 
     }
 
+    //get Request
     function getCurlRequest($apiKey,$apiSecret,$url){
         $curl = curl_init();
 
@@ -146,6 +164,7 @@
         }
     }
 
+    //Post Curl Request
     function postCurlRequest($apiKey,$apiSecret,$url,$data){
         $curl = curl_init();
 
@@ -175,4 +194,10 @@
         } else {
         echo $response;
         }
+    }
+
+    //Statistics section start
+
+    function getStaistics($apiKey,$apiSecret,$filters){
+
     }

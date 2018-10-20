@@ -26,7 +26,7 @@
 <body>
 <div class="container">
     <div class="row profile">
-		<div class="col-md-3">
+		<div class="col-xl-3 col-lg-4 col-md-12">
 			<div class="profile-sidebar">
 
 				<div class="profile-usertitle">
@@ -100,7 +100,7 @@
 			</div>
 		</div>
 		
-		<div class="col-md-9">			
+		<div class="col-xl-9 col-lg-8 col-md-12">			
              <div class="profile-content">
 				<div class="row">
 					<!-- upload section -->
@@ -241,8 +241,23 @@
 					
 					
 					<!-- statistics -->
-					<div id="statistics" class="content-area">
-						show stats
+					<div id="statistics" class="content-area center">
+						<div class="col-xl-12 col-lg-12 col-md-10 col-sm-11 center">
+							<div class="row">
+								<ul class="nav">
+									<li class="nav-link"><input type="date" id='dateControl' class="dateStyle" value="2018-10-01"></li>
+									<li class="nav-link"><input type="date" id='dateControl2' class="dateStyle" value=""></li>
+									<li class="nav-link"><button class="btn btn-primary btn-sm" type="button" id="fetch">Fetch Stats</button></li>
+								</ul>					
+							</div>
+
+							<hr>
+
+							<div class="row graph-container">
+								<canvas id="canvas"></canvas>
+							</div>
+						</div>
+						
 					</div>
 				</div> 			   
              </div>
@@ -287,6 +302,8 @@
 
 <!-- Jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
 <!-- Javascript custom -->
 <script src="../lib/js/admin_script.js"></script>
